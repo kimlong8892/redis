@@ -7,12 +7,6 @@ services:
     restart: always
     ports:
       - "6379:6379"
-    command: >
-      sh -c "redis-server
-      --user ${REDIS_USER} on >${REDIS_PASSWORD} allcommands allkeys
-      --requirepass ${REDIS_PASSWORD}"
-    env_file:
-      - .env
     volumes:
       - redis_data:/data
 
