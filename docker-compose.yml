@@ -2,19 +2,17 @@ version: "3.9"
 
 services:
   redis:
-    image: redis:7.2
+    image: redis:6.2
     container_name: redis_server
     restart: always
     ports:
       - "6379:6379"
-    command: >
-      redis-server
-      --requirepass ${REDIS_PASSWORD}
-      --user ${REDIS_USER} on >${REDIS_PASSWORD} allcommands allkeys
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - redis_data:/data
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     env_file:
       - .env
-    volumes:
-      - redis_data:/data
 
 volumes:
   redis_data:
